@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校史互動學習平台</title>
+    <style>
+        body {
+            font-family: '標楷體', serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4efe3;
+            background-image: url('picture/kaitou.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+		.btn-group {
+    margin-top: 45px;  /* 調整這裡的數值以達到你想要的間距 */
+}
+
+       header {
+            background-color: transparent;
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		    position: fixed; /* 固定於頂部 */
+            width: 95%; /* 占滿整個寬度 */
+            top: 0;
+            z-index: 1000; /* 控制層級 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 滑動動畫效果 */
+        }
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            font-family: 'Noto Serif TC Black', serif;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+        header.scrolled h1 {
+            color: #000;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+        }
+        nav a {
+            color: #e7c57a;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ABA0F2;
+        }
+        .banner {
+            background: url('picture/1.jpg') no-repeat center center/cover;
+			height: 100%;
+			width: auto;
+            color: white;
+            text-align: center;
+            padding: 200px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .banner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .banner h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .banner p {
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .banner .btn {
+            margin: 20px 10px;
+            padding: 15px 30px;
+            background-color: #e7c57a;
+            color: #463b3b;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .banner .btn:hover {
+            background-color: #c7a732;
+            transform: scale(1.08);
+        }
+        .content-section {
+            padding: 100px 40px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 40px;
+        }
+        .content-section h3 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #463b3b;
+        }
+        .content-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 20px auto;
+            max-width: 800px;
+            color: #555;
+        }
+        .feature {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+        .feature div {
+            max-width: 320px;
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature div:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .feature img {
+            width: 100%;
+            height: auto;
+        }
+        .feature h4 {
+            background-color: #463b3b;
+            color: #e7c57a;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.5rem;
+        }
+        .feature p {
+    padding: 20px;
+    font-size: 1rem;
+    text-align: left;
+        }
+        footer {
+            background-color: #463b3b;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        footer .footer-links a {
+            color: #e7c57a;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer .social-icons {
+            margin: 20px 0;
+        }
+        footer .social-icons a {
+            margin: 0 10px;
+            color: #e7c57a;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        footer .social-icons a:hover {
+            color: #ffffff;
+        }
+    </style>
+    <script>
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a>校史互動學習平台</a></h1>
+        <nav>
+            <a href="#course">課程內容</a>
+            <a href="#animation">簡報與動畫</a>
+            <a href="#rpg">RPG遊戲</a>
+            <a href="#faq">常見問題</a>
+            <a href="#contact">聯絡我們</a>
+        </nav>
+    </header>
+
+<section class="banner">
+    <h2>探索校史，感受傳承</h2>
+    <p>深入了解學校的歷史與文化，透過創新的數位化學習方式，體驗傳承的魅力。</p>
+    <div class="btn-group">
+        <a href="#course" class="btn">立即開始</a>
+        <a href="https://forms.gle/je29Vhm3pTzodq5T9" target="_blank" class="btn">課後評量</a>
+    </div>
+</section>
+
+
+    <section class="content-section" id="course">
+        <h3>課程內容</h3>
+        <p>本平台提供兩大課程單元，結合傳統與數位互動，打造全方位學習體驗：</p>
+        <div class="feature">
+            <div> <a href="#animation"><img src="picture/study.png" alt="簡報與動畫"></a>
+                <h4>第一節課：簡報與動畫</h4>
+                <p>透過簡報與動畫，了解學校發展的重要時刻與文化精髓。</p>
+            </div>
+            <div> <a href="#rpg"><img src="picture/game.png" alt="rpg"></a>
+                <h4>第二節課：RPG校史遊戲</h4>
+                <p>進入互動式遊戲，探索校史故事。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" id="animation" style="background-color: #f9f6f0;">
+        <h3>
+        第一節課：簡報與動畫</h3>
+        <p>精心製作的動畫影片，讓您身臨其境地體會學校歷史，感受文化傳承的魅力。</p>
+        <div class="feature">
+			<div> <a href="https://www.canva.com/design/DAGY-2Zb-Ds/OJG3lXljOC3MIWYPN5PAjQ/view?utm_content=DAGY-2Zb-Ds&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4cc0d196a1" target="_blank"><img src="picture/ppticon.png" alt="校史PPT" ></a>
+                <h4>校史PPT</h4>
+                <p>詳實的簡報內容，讓您系統化了解校史發展。</p>
+          </div>
+            <div> <a href="https://www.youtube.com/playlist?list=PLgDokeHGz1O38XVAnX_AkDe5gCAOzJ40H" target="_blank"><img src="picture/animate.png" alt="動畫預覽"></a>
+                <h4>校史動畫</h4>
+                <p>從馬偕博士來台到創立淡江中學，精彩動畫帶您走進校史長河。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" id="rpg">
+    <h3>第二節課：RPG校史遊戲</h3>
+    <div class="feature">
+        <div>
+            <img src="picture/list.png" alt="遊戲任務">
+            <h4>多樣化任務</h4>
+            <p>挑戰各種遊戲任務，體驗學校歷史的重要時刻。</p>
+        </div>
+        <div>
+            <img src="picture/people.png" alt="角色互動">
+            <h4>角色互動與情節</h4>
+            <p>與角色進行交流，解鎖隱藏情節，享受沉浸式學習。</p>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="game.html" target="_blank" style="text-decoration: none;">
+            <button style="
+                background-color: #e7c57a;
+                color: #463b3b;
+                font-size: 1.2rem;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease;">
+                進入遊戲
+            </button>
+        </a>
+    </div>
+</section>
+
+
+    <section class="content-section" id="faq" style="background-color: #f9f6f0;">
+        <h3>常見問題</h3>
+        <p>解答您對於平台功能與使用上的各種疑問。</p>
+        <ul>
+            <li><strong>如何進入RPG遊戲？</strong> 點擊RPG遊戲課程的連結，即可開始遊玩。</li>
+            <li><strong>動畫影片可以重播嗎？</strong> 可以，您可隨時選擇影片重播或下載觀看。</li>
+            <li><strong>平台適合哪些設備使用？</strong> 本平台支援電腦、平板與手機，建議使用最新版本的瀏覽器以獲得最佳體驗。</li>
+        </ul>
+    </section>
+
+    <section class="content-section" id="contact">
+        <h3>聯絡我們</h3>
+        <p>若有任何問題或建議，歡迎隨時聯繫我們：</p>
+        <p>Email: support@schoolhistoryplatform.com</p>
+        <p>電話: (02)2620-3850#163</p>
+    </section>
+
+<footer>
+        <div class="footer-links">
+            <a href="#course">課程內容</a>
+            <a href="#animation">簡報與動畫</a>
+            <a href="#rpg">RPG遊戲</a>
+            <a href="#faq">常見問題</a>
+            <a href="#contact">聯絡我們</a>
+        </div>
+  <p>&copy; 2024 校史互動學習平台. All rights reserved.</p>
+</footer>
+</body>
+</html>
